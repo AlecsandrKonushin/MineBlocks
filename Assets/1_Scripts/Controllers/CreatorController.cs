@@ -11,6 +11,7 @@ namespace Gameplay
         [SerializeField] private Sprite[] _sprites;
         [SerializeField] private int _width;
         [SerializeField] private int _height;
+
         private GameObject parents, tilesParent;
 
         public override void OnInitialize()
@@ -28,6 +29,10 @@ namespace Gameplay
            
         }
 
+        // Он не управляет tiles и ничего не должен знать о width и height
+        // Он только создает
+        // TilesController запрашивает inst tile и хранит ссылки на них
+        // А width, height - нужно положить в отдельный scriptable object и назвать его DataTiles
         private void CreateField()
         {
             for (int i = 0; i < _height; i++)
@@ -48,11 +53,5 @@ namespace Gameplay
             var randomSprite = _sprites[Random.Range(0, _sprites.Length)];
             tile.gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
         }
-
-        // public Tile CreateZombie(TileData data, Vector2 position)
-        // {
-        //     Tile newTile = Instantiate(tilePrefab, tilesParent);
-        //
-        // }
     }
 }
