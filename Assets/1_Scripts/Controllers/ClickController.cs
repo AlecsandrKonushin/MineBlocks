@@ -6,10 +6,13 @@ using UnityEngine.EventSystems;
 
 namespace _1_Scripts.Controllers
 {
+    // Его не нужно делать Mono
     public class ClickController : MonoController, IPointerDownHandler
     {
         private Camera _camera;
-        
+
+        // Не нужно никаких событие к контроллерах, будет спагети
+        // Есть EventsController и в нем пример как подписываться/отписываться/вызывать событие
         public event Action<Tile, Vector3> ClickDowned;
         public event Action ClickUpped;
 
