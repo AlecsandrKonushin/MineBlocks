@@ -7,7 +7,7 @@ using Tile = _1_Scripts.Core.TileData.Tile;
 
 namespace Gameplay
 {
-    [CreateAssetMenu(fileName = "CreatorController", menuName = "New Controller/CreatorController")]
+    [CreateAssetMenu(fileName = "CreatorController", menuName = "Controllers/CreatorController")]
     public class CreatorController : MonoController
     {
         [SerializeField] private Tile tilePrefab;
@@ -25,6 +25,7 @@ namespace Gameplay
             tilesParent.transform.SetParent(parents.transform);
         }
 
+        // зачем пустой метод?
         public override void OnStart()
         {
            

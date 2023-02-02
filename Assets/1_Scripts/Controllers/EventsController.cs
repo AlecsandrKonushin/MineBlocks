@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core
 {
-    [CreateAssetMenu(fileName = "EventsController", menuName = "Controllers/Game/EventsController")]
+    [CreateAssetMenu(fileName = "EventsController", menuName = "Controllers/EventsController")]
     public class EventsController : Controller
     {
         private Action StartGameEvent;
