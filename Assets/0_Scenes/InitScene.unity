@@ -587,7 +587,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   sceneControllers:
-  - {fileID: 11400000, guid: 2f7c2ea6eef70644ba297cfaffeacdc7, type: 2}
+  - {fileID: 11400000, guid: 35736cb2fd4f194429f2f0d029ba4b70, type: 2}
+  - {fileID: 11400000, guid: 03a3a5f25c7343e4ea8bf9885f162c83, type: 2}
 --- !u!4 &1300774572
 Transform:
   m_ObjectHideFlags: 0

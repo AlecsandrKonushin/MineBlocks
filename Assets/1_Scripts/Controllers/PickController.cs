@@ -1,41 +1,39 @@
 ﻿using _1_Scripts.Core.PickData;
 using _1_Scripts.Core.TileData;
 using Core;
+using Gameplay;
 using UnityEngine;
 
 namespace _1_Scripts.Controllers
 {
-    // Его не нужно делать Mono
-    public class PickController : MonoController
+    [CreateAssetMenu(fileName = "PickController", menuName = "New Controller/PickController")]
+    public class PickController : Controller
     {
-        // Создает creator controller - убрать [SerializeField]
-        [SerializeField] private Pick _pick;
-        private ClickController _clickController;
+        private Pick _pick;
+        private EventsController _eventsController;
 
-        public override void OnStart()
+        public override void OnInitialize()
         {
-            _clickController = BoxControllers.GetController<ClickController>();
-         // load from resources
+            _pick = BoxControllers.GetController<CreatorController>().CreatePick();
+            _eventsController = BoxControllers.GetController<EventsController>();
+
             _pick.gameObject.SetActive(false);
+
+            _eventsController.SubscribeOnTileClicked(OnTileClicked);
         }
 
         // Должен подписываться на EventsController
-        private void OnEnable()
-        {
-            _clickController.ClickDowned += OnClickDowned;
-            _clickController.ClickUpped += OnClickUpped;
-        }
 
         private void OnDisable()
         {
-            _clickController.ClickDowned -= OnClickDowned;
-            _clickController.ClickUpped -= OnClickUpped;
+            _eventsController.UnsubscribeOnTileClicked(OnTileClicked);
         }
 
-        private void OnClickDowned(Tile tile, Vector3 tilePosition)
+        private void OnTileClicked(Tile tile)
         {
             _pick.gameObject.SetActive(true);
-            _pick.transform.position = tilePosition;
+            _pick.transform.position = tile.transform.position;
+            Debug.Log("Tile clicked");
             // Тут еще анимацию через doTween сделать нужно, удар киркой и в onComplete выключать кирку
             tile.TakeDamage(_pick.Damage);
         }

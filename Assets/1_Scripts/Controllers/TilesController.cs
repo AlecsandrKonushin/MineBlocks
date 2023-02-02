@@ -1,11 +1,18 @@
 ﻿using _1_Scripts.Core.TileData;
 using Core;
+using Gameplay;
 using UnityEngine;
 
-public class TilesController : Controller
+namespace _1_Scripts.Controllers
 {
-    // без [SerializeField]
-    // Вызывает у creatorController inst tile и добавляет экземпляр в массив
-    [SerializeField] private Tile _tilePrefab;
-    private Tile[] _tiles;
+    [CreateAssetMenu(fileName = "TilesController", menuName = "New Controller/TilesController")]
+    public class TilesController : Controller
+    {
+        private Tile[] _tiles;
+
+        public override void OnInitialize()
+        {
+            _tiles = BoxControllers.GetController<CreatorController>().CreateTiles();
+        }
+    }
 }

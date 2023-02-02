@@ -6,39 +6,39 @@ using UnityEngine.EventSystems;
 
 namespace _1_Scripts.Controllers
 {
-    // Его не нужно делать Mono
-    public class ClickController : MonoController, IPointerDownHandler
+    public class ClickController : MonoController
     {
-        private Camera _camera;
+        private EventsController _eventsController;
 
-        // Не нужно никаких событие к контроллерах, будет спагети
+        private Camera _camera;
         // Есть EventsController и в нем пример как подписываться/отписываться/вызывать событие
-        public event Action<Tile, Vector3> ClickDowned;
-        public event Action ClickUpped;
 
         public override void OnStart()
         {
+        }
+        
+        public override void OnInitialize()
+        {
             _camera = Camera.main;
+            _eventsController = BoxControllers.GetController<EventsController>(); 
+            Debug.Log(_eventsController.Equals(null));
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        private void Update()
         {
-            RaycastHit hit;
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-                    		Debug.Log (this.gameObject.name + " Was Clicked.");
-
-            if (Physics.Raycast(ray, out hit)) 
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.transform.TryGetComponent(out Tile tile))
+                Vector3 mousePosition = Input.mousePosition;
+                Ray ray = _camera.ScreenPointToRay(mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    ClickDowned?.Invoke(tile, hit.transform.position);
+                    if (hit.transform.gameObject.TryGetComponent(out Tile tile))
+                    {
+                        Debug.Log(tile + "Tile clicked");
+                        _eventsController.TileClicked(tile);
+                    }
                 }
             }
-        }
-
-        private void OnMouseUp()
-        {
-            ClickUpped?.Invoke();
         }
     }
 }
