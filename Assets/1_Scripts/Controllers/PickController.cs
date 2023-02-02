@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _1_Scripts.Controllers
 {
-    [CreateAssetMenu(fileName = "PickController", menuName = "New Controller/PickController")]
+    [CreateAssetMenu(fileName = "PickController", menuName = "Controllers/PickController")]
     public class PickController : Controller
     {
         private Pick _pick;
@@ -24,9 +24,10 @@ namespace _1_Scripts.Controllers
 
         // Должен подписываться на EventsController
 
+        // зачем отписка? контроллеры не отключаюьтся/не включаются
         private void OnDisable()
         {
-            _eventsController.UnsubscribeOnTileClicked(OnTileClicked);
+           // _eventsController.UnsubscribeOnTileClicked(OnTileClicked);
         }
 
         private void OnTileClicked(Tile tile)

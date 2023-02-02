@@ -36,7 +36,7 @@ namespace Core
 
         private void AfterLoadData()
         {
-            LoadSceneManager.Instance.LoadGameScene();            
+            SceneControllers.Instance.InitControllers();
         }
     }
 }

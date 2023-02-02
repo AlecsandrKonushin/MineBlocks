@@ -20,6 +20,7 @@ namespace _1_Scripts.Controllers
         public override void OnInitialize()
         {
             _camera = Camera.main;
+            Debug.Log("_camera" + _camera);
             _eventsController = BoxControllers.GetController<EventsController>(); 
             Debug.Log(_eventsController.Equals(null));
         }
