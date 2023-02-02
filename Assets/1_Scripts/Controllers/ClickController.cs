@@ -1,28 +1,18 @@
-﻿using System;
-using _1_Scripts.Core.TileData;
+﻿using _1_Scripts.Core.TileData;
 using Core;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace _1_Scripts.Controllers
 {
     public class ClickController : MonoController
     {
         private EventsController _eventsController;
-
         private Camera _camera;
-        // Есть EventsController и в нем пример как подписываться/отписываться/вызывать событие
 
-        public override void OnStart()
-        {
-        }
-        
         public override void OnInitialize()
         {
             _camera = Camera.main;
-            Debug.Log("_camera" + _camera);
             _eventsController = BoxControllers.GetController<EventsController>(); 
-            Debug.Log(_eventsController.Equals(null));
         }
 
         private void Update()
@@ -35,7 +25,6 @@ namespace _1_Scripts.Controllers
                 {
                     if (hit.transform.gameObject.TryGetComponent(out Tile tile))
                     {
-                        Debug.Log(tile + "Tile clicked");
                         _eventsController.TileClicked(tile);
                     }
                 }

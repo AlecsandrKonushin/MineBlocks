@@ -24,12 +24,6 @@ namespace Gameplay
 
             tilesParent.transform.SetParent(parents.transform);
         }
-
-        // зачем пустой метод?
-        public override void OnStart()
-        {
-           
-        }
         
         public Pick CreatePick()
         {
