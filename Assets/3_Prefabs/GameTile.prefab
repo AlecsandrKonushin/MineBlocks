@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5312412600459657160}
   - component: {fileID: -7163741631472445613}
-  - component: {fileID: 6299149330403894721}
   - component: {fileID: -1778139288099445469}
+  - component: {fileID: 6445219176068866843}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: GameTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,20 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6299149330403894721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853593035288212354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b224d5573145518c4b7450f505aaea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hp: 5
-  _damageEffect: {fileID: 0}
 --- !u!65 &-1778139288099445469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -111,3 +97,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6445219176068866843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853593035288212354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a7eebd70fe46bf976df69a630f91a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 5
+  _damageEffect: {fileID: 0}

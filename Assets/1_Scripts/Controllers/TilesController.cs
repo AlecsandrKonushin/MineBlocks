@@ -12,7 +12,7 @@ namespace _1_Scripts.Controllers
 
         public override void OnInitialize()
         {
-            _tiles = BoxControllers.GetController<CreatorController>().CreateTiles();
+            _tiles = BoxControllers.GetController<CreatorController>().CreateMap();
         }
     }
 }

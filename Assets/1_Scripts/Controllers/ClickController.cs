@@ -1,4 +1,4 @@
-﻿using _1_Scripts.Core.TileData;
+﻿using _1_Scripts.Core.TileSource;
 using Core;
 using UnityEngine;
 
@@ -23,8 +23,9 @@ namespace _1_Scripts.Controllers
                 Ray ray = _camera.ScreenPointToRay(mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (hit.transform.gameObject.TryGetComponent(out Tile tile))
+                    if (hit.transform.gameObject.TryGetComponent(out GameTile tile))
                     {
+                        Debug.Log("tile hitted");
                         _eventsController.TileClicked(tile);
                     }
                 }

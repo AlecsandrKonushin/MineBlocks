@@ -31,18 +31,18 @@ namespace _1_Scripts.Controllers
             {
                 _isAttack = true;
                 _pick.gameObject.SetActive(true);
+                _pick.transform.position = tile.transform.position;
                 _pick.transform
-                    .DOMove(tile.transform.position, _pick.AttackDuration)
+                    .DORotateQuaternion(Quaternion.Euler(0f, 0f, -90f), _pick.AttackDuration)
                     .OnComplete(() =>
                     {
                         tile.TakeDamage(_pick.Damage);
                         _pick.gameObject.SetActive(false);
                         _pick.transform.position = Vector3.zero;
+                        _pick.transform.eulerAngles = Vector3.zero;
                         _isAttack = false;
                     });
             }
-            
-            // пользователь быстро нажмет и отпустит и кирка быстро исчезнет
         }
     }
 }

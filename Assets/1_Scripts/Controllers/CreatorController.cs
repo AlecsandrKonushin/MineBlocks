@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _1_Scripts.Core.PickData;
 using _1_Scripts.Core.TileData;
+using _1_Scripts.Core.TileSource;
 using Core;
 using UnityEngine;
 using Tile = _1_Scripts.Core.TileData.Tile;
@@ -10,9 +11,11 @@ namespace Gameplay
     [CreateAssetMenu(fileName = "CreatorController", menuName = "Controllers/CreatorController")]
     public class CreatorController : MonoController
     {
-        [SerializeField] private Tile tilePrefab;
+        [SerializeField] private GameTile _gameTilePrefab;
+        [SerializeField] private NonGameTile _nonGameTilePrefab;
         [SerializeField] private Pick _pickPrefab;
-        [SerializeField] private Sprite[] _sprites;
+        [SerializeField] private Sprite[] _nonGameTiles;
+        [SerializeField] private Sprite[] _gameTiles;
         [SerializeField] private TilesData _tileData;
 
         private GameObject parents, tilesParent;
@@ -30,31 +33,42 @@ namespace Gameplay
             return Instantiate(_pickPrefab, transform.position, Quaternion.identity);
         }
 
-        public Tile[] CreateTiles()
+        public Tile[] CreateMap()
+        {
+            var nonGameTile = SpawnTiles(_nonGameTilePrefab);
+            var gameTiles = SpawnTiles(_gameTilePrefab);
+
+            return gameTiles.ToArray();
+        }
+
+        private List<Tile> SpawnTiles(Tile tilePrefab)
         {
             var tilesList = new List<Tile>();
-            
+
             for (int i = 0; i < _tileData.Height; i++)
             {
                 for (int j = 0; j < _tileData.Width; j++)
                 {
                     var tile = Instantiate(tilePrefab, tilesParent.transform);
                     tile.transform.position = new Vector3(j, i, 0);
+            
                     InstallSprite(tile);
-                    
                     tile.transform.SetParent(tilesParent.transform);
-
+                    
                     tilesList.Add(tile);
                 }
             }
 
-            return tilesList.ToArray();
+            return tilesList;
         }
 
         private void InstallSprite(Tile tile)
         {
-            var randomSprite = _sprites[Random.Range(0, _sprites.Length)];
+            var randomSprite = tile is GameTile ? _gameTiles[Random.Range(0, _gameTiles.Length)] : 
+                _nonGameTiles[Random.Range(0, _nonGameTiles.Length)];
+            
             tile.gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
+            tile.gameObject.GetComponent<SpriteRenderer>().sortingOrder = tile is GameTile ? 1 : 0;
         }
     }
 }
