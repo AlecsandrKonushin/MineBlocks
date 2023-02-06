@@ -1,5 +1,8 @@
-﻿using _1_Scripts.Core.PickData;
+﻿using System.Collections.Generic;
+using System.Linq;
+using _1_Scripts.Core.PickData;
 using _1_Scripts.Core.TileData;
+using _1_Scripts.Core.TileSource;
 using Core;
 using Gameplay;
 using UnityEngine;
@@ -12,7 +15,8 @@ namespace _1_Scripts.Controllers
     {
         private Pick _pick;
         private EventsController _eventsController;
-        
+        private List<TileConnector> _tilesConnector = new List<TileConnector>();
+
         private bool _isAttack;
 
         public override void OnInitialize()
@@ -27,7 +31,13 @@ namespace _1_Scripts.Controllers
 
         private void OnTileClicked(Tile tile)
         {
-            if (_isAttack == false)
+            var connect = BoxControllers.GetController<TilesController>()
+                .TileConnectors
+                .Select(conn => conn.CanTouch(tile))
+                .FirstOrDefault();
+
+            Debug.Log("Conn is: " + connect);
+            if (_isAttack == false && connect)
             {
                 _isAttack = true;
                 _pick.gameObject.SetActive(true);
@@ -42,7 +52,11 @@ namespace _1_Scripts.Controllers
                         _pick.transform.eulerAngles = Vector3.zero;
                         _isAttack = false;
                     });
+
+                return;
             }
+            
+            Debug.Log("Такого нету");
         }
     }
 }

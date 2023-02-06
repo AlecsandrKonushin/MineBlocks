@@ -41,13 +41,32 @@ namespace Gameplay
             return gameTiles.ToArray();
         }
 
+        public TileConnector[] CreateConnections(Tile[] tiles)
+        {
+            var tilesConnector = new List<TileConnector>();
+            
+            for (int i = _tileData.Height - 1; i > 0; i--)
+            {
+                for (int j = _tileData.Width - 1; j > 0; j--)
+                {
+                    var idxX = i + 1;
+                    var idxY = j + 1;
+                    
+                    tilesConnector.Add(new TileConnector(tiles[i * j], tiles[idxX * idxY]));
+                    Debug.Log(i * j + "  " + idxX * idxY);
+                }
+            }
+
+            return tilesConnector.ToArray();
+        }
+
         private List<Tile> SpawnTiles(Tile tilePrefab)
         {
             var tilesList = new List<Tile>();
 
-            for (int i = 0; i < _tileData.Height; i++)
+            for (int i = _tileData.Height; i > 0 ; i--)
             {
-                for (int j = 0; j < _tileData.Width; j++)
+                for (int j = _tileData.Width; j > 0 ; j--)
                 {
                     var tile = Instantiate(tilePrefab, tilesParent.transform);
                     tile.transform.position = new Vector3(j, i, 0);

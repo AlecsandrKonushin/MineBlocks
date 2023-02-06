@@ -25,7 +25,6 @@ namespace _1_Scripts.Controllers
                 {
                     if (hit.transform.gameObject.TryGetComponent(out GameTile tile))
                     {
-                        Debug.Log("tile hitted");
                         _eventsController.TileClicked(tile);
                     }
                 }
