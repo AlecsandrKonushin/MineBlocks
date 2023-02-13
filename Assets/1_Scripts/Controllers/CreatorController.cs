@@ -45,15 +45,24 @@ namespace Gameplay
         {
             var tilesConnector = new List<TileConnector>();
             
-            for (int i = _tileData.Height - 1; i > 0; i--)
+            for (int i = 0; i < _tileData.Height; i++)
             {
-                for (int j = _tileData.Width - 1; j > 0; j--)
+                int idx = 0;
+                
+                if (i == _tileData.Height - 1)
                 {
-                    var idxX = i + 1;
-                    var idxY = j + 1;
+                    return tilesConnector.ToArray();
+                }
+
+                int idxY = i;
+
+                for (int j = 0; j < _tileData.Width; j++)
+                {
+                    var idxX = i + idx + _tileData.Width;
                     
-                    tilesConnector.Add(new TileConnector(tiles[i * j], tiles[idxX * idxY]));
-                    Debug.Log(i * j + "  " + idxX * idxY);
+                    tilesConnector.Add(new TileConnector(tiles[j + idxY], tiles[idxX]));
+                    Debug.Log(j + idxY + "  " + idxX);
+                    idx++;
                 }
             }
 
